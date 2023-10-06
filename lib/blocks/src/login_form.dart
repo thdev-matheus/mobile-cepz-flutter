@@ -18,7 +18,6 @@ class _LoginFormState extends State<LoginForm> {
             placeholder: 'Digite seu usuário',
             icon: Icons.person,
             label: 'Usuário',
-            isRequired: true,
           ),
           separator(height: 16),
           const TextInput(
@@ -26,7 +25,6 @@ class _LoginFormState extends State<LoginForm> {
             icon: Icons.lock,
             label: 'Senha',
             isPassword: true,
-            isRequired: true,
           ),
           separator(height: 16),
           Row(

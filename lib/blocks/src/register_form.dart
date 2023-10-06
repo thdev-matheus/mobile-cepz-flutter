@@ -131,6 +131,7 @@ class _RegisterFormState extends State<RegisterForm> {
           width: MediaQuery.of(context).size.width,
           child: TXTButton(
             text: 'Cadastrar',
+            textSize: 24,
             action: handleSubmit,
           ),
         ),

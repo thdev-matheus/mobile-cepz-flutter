@@ -5,15 +5,15 @@ import 'package:cepz/utils/utils.dart';
 import 'package:cepz/components/components.dart';
 import 'package:cepz/blocks/blocks.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -21,25 +21,25 @@ class LoginPage extends StatelessWidget {
                 const Logo(),
                 separator(height: 30),
                 Text(
-                  'Login',
+                  'Cadastro',
                   style: primaryTextStyle(size: 36, weight: FontWeight.bold),
                 ),
               ],
             ),
             separator(height: 24),
-            const LoginForm(),
+            const RegisterForm(),
             separator(height: 18),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Não tem cadastro? Registre-se ',
+                  'Já tem cadastro? Faça login ',
                   style: primaryTextStyle(
                     weight: FontWeight.bold,
                   ),
                 ),
                 InkWell(
-                  onTap: () => navigator(context: context, to: '/register'),
+                  onTap: () => navigator(context: context, to: '/login'),
                   child: Text(
                     'aqui',
                     style: primaryTextStyle(
