@@ -1,15 +1,13 @@
 import 'package:cepz/models/models.dart';
 
 class UserCepsModel {
-  List<Cep> ceps = [];
-
-  UserCepsModel(this.ceps);
+  static List<CepModel> ceps = [];
 
   UserCepsModel.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
-      ceps = <Cep>[];
+      ceps = <CepModel>[];
       json['results'].forEach((v) {
-        ceps.add(Cep.fromJson(v));
+        ceps.add(CepModel.fromJson(v));
       });
     }
   }

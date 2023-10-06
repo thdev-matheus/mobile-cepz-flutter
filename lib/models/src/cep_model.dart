@@ -1,35 +1,27 @@
 import 'package:cepz/models/models.dart';
 
-class Cep {
-  String? objectId;
-  String? createdAt;
-  String? updatedAt;
-  String? cep;
-  String? logradouro;
-  String? complemento;
-  String? bairro;
-  String? localidade;
-  String? uf;
-  String? ddd;
-  UserId? userId;
+class CepModel {
+  String cep = "";
+  String logradouro = "";
+  String complemento = "";
+  String bairro = "";
+  String localidade = "";
+  String uf = "";
+  String ddd = "";
+  Owner owner = Owner();
 
-  Cep(
-      {this.objectId,
-      this.createdAt,
-      this.updatedAt,
-      this.cep,
-      this.logradouro,
-      this.complemento,
-      this.bairro,
-      this.localidade,
-      this.uf,
-      this.ddd,
-      this.userId});
+  CepModel(
+    this.cep,
+    this.logradouro,
+    this.complemento,
+    this.bairro,
+    this.localidade,
+    this.uf,
+    this.ddd,
+    this.owner,
+  );
 
-  Cep.fromJson(Map<String, dynamic> json) {
-    objectId = json['objectId'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+  CepModel.fromJson(Map<String, dynamic> json) {
     cep = json['cep'];
     logradouro = json['logradouro'];
     complemento = json['complemento'];
@@ -37,14 +29,12 @@ class Cep {
     localidade = json['localidade'];
     uf = json['uf'];
     ddd = json['ddd'];
-    userId = json['userId'] != null ? UserId.fromJson(json['userId']) : null;
+    owner = Owner();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['objectId'] = objectId;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
+
     data['cep'] = cep;
     data['logradouro'] = logradouro;
     data['complemento'] = complemento;
@@ -52,9 +42,8 @@ class Cep {
     data['localidade'] = localidade;
     data['uf'] = uf;
     data['ddd'] = ddd;
-    if (userId != null) {
-      data['userId'] = userId!.toJson();
-    }
+    data['owner'] = owner.toJson();
+
     return data;
   }
 }
