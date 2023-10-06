@@ -1,6 +1,7 @@
-import 'package:cepz/styles/global_styles.dart';
 import 'package:flutter/material.dart';
 
+import 'package:cepz/styles/global_styles.dart';
+import 'package:cepz/utils/utils.dart';
 import 'package:cepz/components/components.dart';
 import 'package:cepz/blocks/blocks.dart';
 
@@ -25,6 +26,34 @@ class LoginPage extends StatelessWidget {
                 ),
                 separator(height: 24),
                 const LoginForm(),
+                separator(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Não tem cadastro? Registre-se ',
+                      style: primaryTextStyle(
+                        weight: FontWeight.bold,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => navigator(context: context, to: '/register'),
+                      child: Text(
+                        'aqui',
+                        style: primaryTextStyle(
+                          color: primary,
+                          weight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '.',
+                      style: primaryTextStyle(
+                        weight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
