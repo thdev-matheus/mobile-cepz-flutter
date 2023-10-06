@@ -7,13 +7,11 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Text(
-        'Cepz',
-        style: GoogleFonts.permanentMarker(
-          fontSize: 100,
-          color: primary,
-        ),
+    return Text(
+      'Cepz',
+      style: GoogleFonts.permanentMarker(
+        fontSize: 100,
+        color: primary,
       ),
     );
   }
