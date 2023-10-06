@@ -1,3 +1,4 @@
+import 'package:cepz/components/components.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -5,11 +6,12 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        title: const Text('login'),
+    return const SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Logo(),
+        ),
       ),
-    ));
+    );
   }
 }
