@@ -1,4 +1,5 @@
 import 'package:cepz/components/components.dart';
+import 'package:cepz/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
@@ -9,6 +10,18 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  late UserRepository userRepository;
+
+  Future<void> handleLogin() async {
+    await userRepository.login(username: 'Theus', password: 'Matheus!123');
+  }
+
+  @override
+  void initState() {
+    userRepository = UserRepository();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -35,7 +48,9 @@ class _LoginFormState extends State<LoginForm> {
                   child: TXTButton(
                     text: 'Entrar',
                     textSize: 24,
-                    action: () {},
+                    action: () async {
+                      await handleLogin();
+                    },
                   ),
                 ),
               ),

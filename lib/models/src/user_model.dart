@@ -1,26 +1,26 @@
 class UserModel {
   static String? objectId;
   static String? username;
-  static String? password;
   static String? createdAt;
   static String? updatedAt;
+  static String? sessionToken;
 
   UserModel.fromJson(Map<String, dynamic> json) {
     objectId = json['objectId'];
     username = json['username'];
-    password = json['password'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    sessionToken = json['sessionToken'];
   }
 
-  Map<String, dynamic> toJson() {
+  static Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
 
     data['objectId'] = objectId;
     data['username'] = username;
-    data['password'] = password;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
+    data['sessionToken'] = sessionToken;
 
     return data;
   }
