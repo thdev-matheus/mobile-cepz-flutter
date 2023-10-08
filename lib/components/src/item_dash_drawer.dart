@@ -7,31 +7,34 @@ class ItemDashDrawer extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.onAction,
+    required this.selected,
   });
 
   final IconData icon;
   final String title;
   final void Function() onAction;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      selected: selected,
+      iconColor: primary,
+      textColor: primary,
+      enabled: !selected,
+      titleTextStyle: primaryTextStyle(
+        weight: FontWeight.bold,
+        size: 18,
+      ),
       leading: Icon(
         icon,
-        color: primary,
         size: 25,
       ),
       title: Text(
         title,
-        style: primaryTextStyle(
-          weight: FontWeight.bold,
-          size: 18,
-          color: primary,
-        ),
       ),
-      trailing: Icon(
+      trailing: const Icon(
         Icons.arrow_forward_ios,
-        color: primary,
         size: 20,
       ),
       onTap: onAction,

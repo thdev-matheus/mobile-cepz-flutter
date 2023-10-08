@@ -12,21 +12,62 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  int page = 0;
+  final _pageController = PageController(initialPage: 0);
+
+  void navigateToPage(int pageIndex) {
+    _pageController.animateToPage(pageIndex,
+        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    setState(() {
+      page = pageIndex;
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(UserModel.username!),
+        ),
         drawer: DashDrawer(
           children: [
             ItemDashDrawer(
-              icon: Icons.cell_tower,
-              title: 'Meus ceps',
-              onAction: () {},
+              icon: Icons.list_alt_rounded,
+              title: 'Meus Endereços',
+              selected: page == 0,
+              onAction: () {
+                Navigator.pop(context);
+                navigateToPage(0);
+              },
+            ),
+            ItemDashDrawer(
+              icon: Icons.map_outlined,
+              title: 'Encontrar Endereço',
+              selected: page == 1,
+              onAction: () {
+                Navigator.pop(context);
+                navigateToPage(1);
+              },
             ),
           ],
         ),
-        appBar: AppBar(
-          title: Text(UserModel.username!),
+        body: PageView(
+          controller: _pageController,
+          children: [
+            Container(
+              color: Colors.blue,
+            ),
+            Container(
+              color: Colors.green,
+            ),
+          ],
         ),
       ),
     );
