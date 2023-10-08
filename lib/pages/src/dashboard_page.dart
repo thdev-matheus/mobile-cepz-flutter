@@ -1,8 +1,8 @@
-import 'package:cepz/components/components.dart';
-import 'package:cepz/models/models.dart';
-import 'package:cepz/styles/global_styles.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cepz/components/components.dart';
 import 'package:cepz/blocks/blocks.dart';
+import 'package:cepz/models/models.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -21,11 +21,6 @@ class _DashboardPageState extends State<DashboardPage> {
             ItemDashDrawer(
               icon: Icons.cell_tower,
               title: 'Meus ceps',
-              onAction: () {},
-            ),
-            ItemDashDrawer(
-              icon: Icons.cell_tower,
-              title: 'Outro item',
               onAction: () {},
             ),
           ],

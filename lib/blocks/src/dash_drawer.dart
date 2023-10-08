@@ -13,7 +13,7 @@ class DashDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
+      child: Column(
         children: [
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(
@@ -43,7 +43,36 @@ class DashDrawer extends StatelessWidget {
               ),
             ),
           ),
-          ...children
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    ...children,
+                  ],
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 25, right: 16, left: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 43,
+                          child: TXTButton(
+                            text: 'Sair',
+                            textSize: 18,
+                            action: () {},
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );
