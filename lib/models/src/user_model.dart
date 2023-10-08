@@ -24,6 +24,14 @@ class UserModel {
 
     return data;
   }
+
+  static clearUser() {
+    objectId = null;
+    username = null;
+    createdAt = null;
+    updatedAt = null;
+    sessionToken = null;
+  }
 }
 
 class Owner {

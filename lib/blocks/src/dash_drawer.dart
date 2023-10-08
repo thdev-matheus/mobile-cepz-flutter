@@ -3,12 +3,21 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:cepz/styles/global_styles.dart';
 import 'package:cepz/models/models.dart';
+import 'package:cepz/repositories/repositories.dart';
 import 'package:cepz/components/components.dart';
+import 'package:cepz/utils/utils.dart';
 
-class DashDrawer extends StatelessWidget {
+class DashDrawer extends StatefulWidget {
   const DashDrawer({super.key, required this.children});
 
   final List<ItemDashDrawer> children;
+
+  @override
+  State<DashDrawer> createState() => _DashDrawerState();
+}
+
+class _DashDrawerState extends State<DashDrawer> {
+  UserRepository userRepository = UserRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +58,7 @@ class DashDrawer extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    ...children,
+                    ...widget.children,
                   ],
                 ),
                 Padding(
@@ -63,7 +72,12 @@ class DashDrawer extends StatelessWidget {
                           child: TXTButton(
                             text: 'Sair',
                             textSize: 18,
-                            action: () {},
+                            action: () async {
+                              await userRepository.logout().then((_) {
+                                Navigator.pop(context);
+                                navigator(context: context, to: '/login');
+                              });
+                            },
                           ),
                         ),
                       ),

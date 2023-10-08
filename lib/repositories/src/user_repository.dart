@@ -20,4 +20,18 @@ class UserRepository {
       print('erro => $e');
     }
   }
+
+  Future<void> logout() async {
+    try {
+      _api.options.headers['X-Parse-Session-Token'] = UserModel.sessionToken;
+
+      const body = {};
+
+      await _api.post('/logout', data: body).then((_) {
+        UserModel.clearUser();
+      });
+    } catch (e) {
+      print('erro => $e');
+    }
+  }
 }
