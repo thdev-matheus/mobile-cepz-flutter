@@ -1,3 +1,4 @@
+import 'package:cepz/styles/global_styles.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cepz/components/components.dart';
@@ -35,6 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(UserModel.username!),
+          backgroundColor: primary,
         ),
         drawer: DashDrawer(
           children: [
@@ -61,9 +63,7 @@ class _DashboardPageState extends State<DashboardPage> {
         body: PageView(
           controller: _pageController,
           children: [
-            Container(
-              color: Colors.blue,
-            ),
+            const MyAddresses(),
             Container(
               color: Colors.green,
             ),
