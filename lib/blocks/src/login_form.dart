@@ -1,5 +1,6 @@
 import 'package:cepz/components/components.dart';
 import 'package:cepz/repositories/repositories.dart';
+import 'package:cepz/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
@@ -13,7 +14,9 @@ class _LoginFormState extends State<LoginForm> {
   late UserRepository userRepository;
 
   Future<void> handleLogin() async {
-    await userRepository.login(username: 'Theus', password: 'Matheus!123');
+    await userRepository
+        .login(username: 'Theus', password: 'Matheus!123')
+        .then((_) => navigator(context: context, to: '/dashboard'));
   }
 
   @override
