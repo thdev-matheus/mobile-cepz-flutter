@@ -31,6 +31,7 @@ dependencies:
   google_fonts: ^6.1.0
   flutter_dotenv: ^5.1.0
   dio: ^5.3.3
+  mask_text_input_formatter: ^2.5.0
   flutter:
     sdk: flutter
 

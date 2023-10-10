@@ -62,11 +62,14 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         body: PageView(
           controller: _pageController,
-          children: [
-            const MyAddresses(),
-            Container(
-              color: Colors.green,
-            ),
+          onPageChanged: (pageNumber) {
+            setState(() {
+              page = pageNumber;
+            });
+          },
+          children: const [
+            MyAddresses(),
+            SearchAddress(),
           ],
         ),
       ),
