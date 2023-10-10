@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cepz/repositories/repositories.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cepz/components/components.dart';
@@ -11,6 +15,7 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  UserRepository userRepository = UserRepository();
   TextEditingController userNameInputController = TextEditingController();
   TextEditingController passwordInputController = TextEditingController();
   TextEditingController confirmPasswordInputController =
@@ -20,7 +25,14 @@ class _RegisterFormState extends State<RegisterForm> {
   String? passwordError;
   String? confirmPasswordError;
 
-  void handleSubmit() {
+  void onMessageAction(String msg) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(msg),
+        ),
+      );
+
+  Future<void> handleSubmit() async {
     //verificação do nome de usuário
     Map<String, dynamic> userNameValidation =
         Validator.userNameValidation(userNameInputController.text);
@@ -76,18 +88,26 @@ class _RegisterFormState extends State<RegisterForm> {
       return;
     }
 
-    print({
-      "userName": userNameInputController.text,
-      "password": passwordInputController.text,
-      "confirmPassword": confirmPasswordInputController.text,
-    });
+    try {
+      await userRepository.register(
+        username: userNameInputController.text,
+        password: passwordInputController.text,
+      );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Cadastro efetuado com sucesso'),
-      ),
-    );
-    navigator(context: context, to: '/login', remove: true);
+      onMessageAction('Cadastro efetuado com sucesso');
+
+      navigator(context: context, to: '/login', remove: true);
+    } on DioException catch (e) {
+      if (e.response!.data['error'] ==
+          'Account already exists for this username.') {
+        onMessageAction(
+            'Este nome de usuário já existe em nosso banco de dados.');
+      } else {
+        onMessageAction('Algo deu errado. Tente novamente mais tarde');
+      }
+    } catch (_) {
+      onMessageAction('Algo deu errado. Tente novamente mais tarde');
+    }
   }
 
   @override
