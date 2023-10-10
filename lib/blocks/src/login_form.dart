@@ -13,10 +13,36 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   late UserRepository userRepository;
 
+  TextEditingController usernameInputController = TextEditingController();
+  TextEditingController passwordInputController = TextEditingController();
+
   Future<void> handleLogin() async {
+    if (usernameInputController.text.isEmpty ||
+        passwordInputController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Todos os campos são obrigatórios.',
+          ),
+        ),
+      );
+      return;
+    }
+
     await userRepository
-        .login(username: 'Theus', password: 'Matheus!123')
-        .then((_) => navigator(context: context, to: '/dashboard'));
+        .login(
+            username: usernameInputController.text,
+            password: passwordInputController.text)
+        .then((_) => navigator(context: context, to: '/dashboard'))
+        .catchError((e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Nome de usuário e/ou senha incorreto(s)',
+          ),
+        ),
+      );
+    });
   }
 
   @override
@@ -30,13 +56,15 @@ class _LoginFormState extends State<LoginForm> {
     return Form(
       child: Column(
         children: [
-          const TextInput(
+          TextInput(
+            controller: usernameInputController,
             placeholder: 'Digite seu usuário',
             icon: Icons.person,
             label: 'Usuário',
           ),
           separator(height: 16),
-          const TextInput(
+          TextInput(
+            controller: passwordInputController,
             placeholder: 'Digite sua senha',
             icon: Icons.lock,
             label: 'Senha',

@@ -19,7 +19,7 @@ class UserRepository {
 
       print(UserModel.toJson());
     } catch (e) {
-      print('erro => $e');
+      throw Error();
     }
   }
 
