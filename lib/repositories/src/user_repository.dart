@@ -2,16 +2,16 @@ import 'package:cepz/api/cepz_api.dart';
 import 'package:cepz/models/models.dart';
 
 class UserRepository {
-  final _api = CepzAPI().dio;
+  final _cepzAPI = CepzAPI().dio;
 
   Future<void> login({
     required String username,
     required String password,
   }) async {
     try {
-      _api.options.headers['X-Parse-Revocable-Session'] = '1';
+      _cepzAPI.options.headers['X-Parse-Revocable-Session'] = '1';
       var response =
-          await _api.get('/login?username=$username&password=$password');
+          await _cepzAPI.get('/login?username=$username&password=$password');
 
       UserModel.fromJson(response.data);
 
@@ -23,11 +23,12 @@ class UserRepository {
 
   Future<void> logout() async {
     try {
-      _api.options.headers['X-Parse-Session-Token'] = UserModel.sessionToken;
+      _cepzAPI.options.headers['X-Parse-Session-Token'] =
+          UserModel.sessionToken;
 
       const body = {};
 
-      await _api.post('/logout', data: body).then((_) {
+      await _cepzAPI.post('/logout', data: body).then((_) {
         UserModel.clearUser();
       });
     } catch (e) {
