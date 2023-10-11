@@ -1,3 +1,5 @@
+import 'package:cepz/repositories/repositories.dart';
+import 'package:cepz/repositories/src/cep_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:cepz/components/components.dart';
 import 'package:cepz/models/models.dart';
@@ -12,35 +14,28 @@ class MyAddresses extends StatefulWidget {
 }
 
 class _MyAddressesState extends State<MyAddresses> {
-  List<CepModel> cepList = [
-    CepModel(
-      '0',
-      '55020825',
-      'Rua Radialisata Mcdowell Holanda',
-      '',
-      'São José',
-      'Caruaru',
-      'PE',
-      '81',
-    ),
-    CepModel(
-      '1',
-      '53370390',
-      'Rua Paca',
-      'Quadra D26',
-      'Ouro Preto',
-      'Olinda',
-      'PE',
-      '81',
-    ),
-  ];
+  UserRepository userRepository = UserRepository();
+  CepRepository cepRepository = CepRepository();
+
+  Future<void> loadData() async {
+    await cepRepository.getCeps();
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    loadData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: cepList.length,
+      itemCount: UserCepsModel.ceps.length,
       itemBuilder: (_, index) => AddressCard(
-        cep: cepList[index],
+        cep: UserCepsModel.ceps[index],
       ),
     );
   }

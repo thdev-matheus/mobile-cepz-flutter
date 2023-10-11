@@ -26,7 +26,7 @@ class CepModel {
     objectId = json['objectId'];
     cep = json['cep'];
     logradouro = json['logradouro'];
-    complemento = json['complemento'];
+    complemento = json['complemento'] ?? '';
     bairro = json['bairro'];
     localidade = json['localidade'];
     uf = json['uf'];
