@@ -15,4 +15,10 @@ class CepRepository {
 
     UserCepsModel.fromJson(response.data);
   }
+
+  Future<void> deleteCep(String objectId) async {
+    await _cepzAPI
+        .delete('/classes/Address/$objectId')
+        .then((_) async => await getCeps());
+  }
 }

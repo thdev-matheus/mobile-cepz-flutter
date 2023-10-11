@@ -1,17 +1,24 @@
+import 'package:cepz/repositories/repositories.dart';
 import 'package:cepz/styles/global_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:cepz/models/models.dart';
 
 class AddressCard extends StatefulWidget {
-  const AddressCard({super.key, required this.cep});
+  const AddressCard({
+    super.key,
+    required this.cep,
+    required this.removeAddress,
+  });
 
   final CepModel cep;
+  final void Function({required String id}) removeAddress;
 
   @override
   State<AddressCard> createState() => _AddressCardState();
 }
 
 class _AddressCardState extends State<AddressCard> {
+  CepRepository cepRepository = CepRepository();
   double offsetX = 0.0;
 
   @override
@@ -24,7 +31,7 @@ class _AddressCardState extends State<AddressCard> {
       },
       onHorizontalDragEnd: (_) {
         if (offsetX <= -275) {
-          // lógica para deletar
+          widget.removeAddress(id: widget.cep.objectId);
         }
         setState(() {
           offsetX = 0;
