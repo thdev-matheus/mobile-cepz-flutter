@@ -35,6 +35,20 @@ Esta aplicação faz uso do back4app que é uma plataforma low code que permite 
 <br/>
 <br/>
 
+### Futuras Features:
+
+Para as futuras funcionalidades da aplicação, estão as seguintes ideias:
+
+- Campo de e-mail no cadastro de usuário
+- Verificação de e-mail
+- Página de recuperação de senha
+- Possibilidade de add uma imagem de perfil depois de logado 
+- Editar dados de usuário
+- Deletar usuário
+
+<br/>
+<br/>
+
 ## Criador do projeto
 
 Este projeto foi criado por Matheus Vieira:
