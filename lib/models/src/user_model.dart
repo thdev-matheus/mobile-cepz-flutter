@@ -35,11 +35,11 @@ class UserModel {
 }
 
 class Owner {
-  static String sType = "Pointer";
-  static String className = "_User";
-  static String? objectId = UserModel.objectId;
+  String sType = "Pointer";
+  String className = "_User";
+  String? objectId;
 
-  Owner();
+  Owner(this.objectId);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

@@ -1,8 +1,6 @@
 import 'package:cepz/api/cepz_api.dart';
 import 'package:cepz/models/models.dart';
 
-// import 'package:dio/dio.dart';
-
 class CepRepository {
   final _cepzAPI = CepzAPI().dio;
 
@@ -18,7 +16,7 @@ class CepRepository {
 
   Future<void> createCep(ViaCepModel viaCepModel) async {
     await _cepzAPI.post('/classes/Address',
-        data: {...viaCepModel.toJson(), 'owner': Owner()});
+        data: {...viaCepModel.toJson(), 'owner': Owner(UserModel.objectId)});
   }
 
   Future<void> deleteCep(String objectId) async {

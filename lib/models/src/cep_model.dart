@@ -9,7 +9,7 @@ class CepModel {
   String localidade = "";
   String uf = "";
   String ddd = "";
-  Owner owner = Owner();
+  Owner owner = Owner(UserModel.objectId);
 
   CepModel(
     this.objectId,
@@ -33,7 +33,6 @@ class CepModel {
     localidade = json['localidade'];
     uf = json['uf'];
     ddd = json['ddd'];
-    owner = Owner();
   }
 
   Map<String, dynamic> toJson() {
