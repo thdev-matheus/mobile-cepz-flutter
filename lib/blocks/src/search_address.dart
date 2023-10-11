@@ -1,6 +1,6 @@
 import 'package:cepz/components/components.dart';
 import 'package:cepz/models/models.dart';
-import 'package:cepz/repositories/src/via_cep_repository.dart';
+import 'package:cepz/repositories/repositories.dart';
 import 'package:cepz/styles/global_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:cepz/blocks/blocks.dart';
@@ -13,7 +13,8 @@ class SearchAddress extends StatefulWidget {
 }
 
 class _SearchAddressState extends State<SearchAddress> {
-  ViaCepRepository cepRepository = ViaCepRepository();
+  final ViaCepRepository _viaCepRepository = ViaCepRepository();
+  final CepRepository _cepRepository = CepRepository();
   ViaCepModel? cep;
   bool isStarred = false;
 
@@ -24,7 +25,7 @@ class _SearchAddressState extends State<SearchAddress> {
       });
 
   Future<void> handleSearchCep(String value) async {
-    ViaCepModel? response = await cepRepository.searchCep(value);
+    ViaCepModel? response = await _viaCepRepository.searchCep(value);
 
     if (response == null) {
       setState(() {
@@ -33,7 +34,15 @@ class _SearchAddressState extends State<SearchAddress> {
             'CEP não identificado no banco de dados, verifique os dados e tente novamente';
       });
     } else {
+      CepModel? cepStar = UserCepsModel.ceps.firstWhere(
+        (element) => element.cep == response.cep!.replaceAll('-', ''),
+        orElse: () => CepModel.empty(),
+      );
+
       setState(() {
+        if (cepStar.cep.isNotEmpty) {
+          isStarred = true;
+        }
         cep = response;
         resultText = null;
       });
@@ -62,7 +71,22 @@ class _SearchAddressState extends State<SearchAddress> {
                     children: [
                       isStarred
                           ? InkWell(
-                              onTap: toggleIsStarred,
+                              onTap: () async {
+                                CepModel cepStarred =
+                                    UserCepsModel.ceps.firstWhere(
+                                  (element) =>
+                                      element.cep ==
+                                      cep?.cep!.replaceAll('-', ''),
+                                  orElse: () => CepModel.empty(),
+                                );
+
+                                if (cepStarred.objectId.isNotEmpty) {
+                                  await _cepRepository
+                                      .deleteCep(cepStarred.objectId);
+                                }
+
+                                toggleIsStarred();
+                              },
                               child: Icon(
                                 Icons.star,
                                 size: 35,
@@ -70,7 +94,11 @@ class _SearchAddressState extends State<SearchAddress> {
                               ),
                             )
                           : InkWell(
-                              onTap: toggleIsStarred,
+                              onTap: () async {
+                                await _cepRepository.createCep(cep!);
+
+                                toggleIsStarred();
+                              },
                               child: Icon(
                                 Icons.star_border,
                                 size: 35,

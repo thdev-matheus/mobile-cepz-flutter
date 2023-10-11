@@ -18,6 +18,8 @@ class _MyAddressesState extends State<MyAddresses> {
   UserRepository userRepository = UserRepository();
   CepRepository cepRepository = CepRepository();
 
+  bool isLoading = false;
+
   void removeAddress({required String id}) {
     showDialog(
       context: context,
@@ -35,9 +37,15 @@ class _MyAddressesState extends State<MyAddresses> {
   }
 
   Future<void> loadData() async {
+    setState(() {
+      isLoading = true;
+    });
+
     await cepRepository.getCeps();
 
-    setState(() {});
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -48,34 +56,38 @@ class _MyAddressesState extends State<MyAddresses> {
 
   @override
   Widget build(BuildContext context) {
-    return UserCepsModel.ceps.isEmpty
-        ? Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Não há endereços salvos!',
-                  style: primaryTextStyle(
-                    size: 22,
-                    weight: FontWeight.bold,
-                  ),
-                ),
-                separator(height: 16),
-                Text(
-                  'Salve novos endereços para que eles apareçam aqui',
-                  textAlign: TextAlign.center,
-                  style: primaryTextStyle(size: 16),
-                )
-              ],
-            ),
+    return isLoading
+        ? const Center(
+            child: CircularProgressIndicator(),
           )
-        : ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: UserCepsModel.ceps.length,
-            itemBuilder: (_, index) => AddressCard(
-              cep: UserCepsModel.ceps[index],
-              removeAddress: removeAddress,
-            ),
-          );
+        : UserCepsModel.ceps.isEmpty
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Não há endereços salvos!',
+                      style: primaryTextStyle(
+                        size: 22,
+                        weight: FontWeight.bold,
+                      ),
+                    ),
+                    separator(height: 16),
+                    Text(
+                      'Salve novos endereços para que eles apareçam aqui',
+                      textAlign: TextAlign.center,
+                      style: primaryTextStyle(size: 16),
+                    )
+                  ],
+                ),
+              )
+            : ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: UserCepsModel.ceps.length,
+                itemBuilder: (_, index) => AddressCard(
+                  cep: UserCepsModel.ceps[index],
+                  removeAddress: removeAddress,
+                ),
+              );
   }
 }

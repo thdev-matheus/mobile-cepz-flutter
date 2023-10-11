@@ -7,7 +7,7 @@ class UserCepsModel {
     if (json['results'] != null) {
       ceps = <CepModel>[];
       json['results'].forEach((v) {
-        ceps.add(CepModel.fromJson(v));
+        ceps.insert(0, CepModel.fromJson(v));
       });
     }
   }

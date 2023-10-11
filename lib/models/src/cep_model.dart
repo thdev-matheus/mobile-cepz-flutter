@@ -22,6 +22,8 @@ class CepModel {
     this.ddd,
   );
 
+  CepModel.empty();
+
   CepModel.fromJson(Map<String, dynamic> json) {
     objectId = json['objectId'];
     cep = json['cep'];
