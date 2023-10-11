@@ -17,12 +17,8 @@ class CepRepository {
   }
 
   Future<void> createCep(ViaCepModel viaCepModel) async {
-    try {
-      await _cepzAPI.post('/classes/Address',
-          data: {...viaCepModel.toJson(), 'owner': Owner()});
-    } catch (e) {
-      print(e);
-    }
+    await _cepzAPI.post('/classes/Address',
+        data: {...viaCepModel.toJson(), 'owner': Owner()});
   }
 
   Future<void> deleteCep(String objectId) async {

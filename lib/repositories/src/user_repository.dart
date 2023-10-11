@@ -16,8 +16,6 @@ class UserRepository {
           await _cepzAPI.get('/login?username=$username&password=$password');
 
       UserModel.fromJson(response.data);
-
-      print(UserModel.toJson());
     } catch (e) {
       throw Error();
     }
@@ -30,10 +28,8 @@ class UserRepository {
     try {
       _cepzAPI.options.headers['X-Parse-Revocable-Session'] = '1';
 
-      var response = await _cepzAPI
+      await _cepzAPI
           .post('/users', data: {'username': username, 'password': password});
-
-      print(response.data);
     } on DioException catch (e) {
       throw DioException(
         requestOptions: e.requestOptions,
@@ -49,17 +45,12 @@ class UserRepository {
   }
 
   Future<void> logout() async {
-    try {
-      _cepzAPI.options.headers['X-Parse-Session-Token'] =
-          UserModel.sessionToken;
+    _cepzAPI.options.headers['X-Parse-Session-Token'] = UserModel.sessionToken;
 
-      const body = {};
+    const body = {};
 
-      await _cepzAPI.post('/logout', data: body).then((_) {
-        UserModel.clearUser();
-      });
-    } catch (e) {
-      print('erro => $e');
-    }
+    await _cepzAPI.post('/logout', data: body).then((_) {
+      UserModel.clearUser();
+    });
   }
 }

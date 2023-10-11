@@ -1,5 +1,5 @@
-import 'package:cepz/styles/global_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:cepz/styles/global_styles.dart';
 
 import 'package:cepz/components/components.dart';
 import 'package:cepz/blocks/blocks.dart';

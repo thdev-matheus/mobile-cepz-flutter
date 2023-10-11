@@ -7,14 +7,12 @@ class ViaCepRepository {
   Future<ViaCepModel?> searchCep(String cepTxt) async {
     try {
       var response = await _viaCepAPI.get('/$cepTxt/json/');
-      print(response.data);
+
       if (response.data['erro'] == true) {
-        throw new Error();
+        throw Error();
       }
 
-      ViaCepModel cep = ViaCepModel.fromJson(response.data);
-
-      return cep;
+      return ViaCepModel.fromJson(response.data);
     } catch (e) {
       return null;
     }
